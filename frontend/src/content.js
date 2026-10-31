@@ -1,0 +1,168 @@
+function photo(id, width = 1400) {
+  return `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${width}&q=80`;
+}
+
+const days = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+
+export const settings = {
+  studioName: "HTLSTUDIO by Maria",
+  eyebrow: "Lewisham, London",
+  headline: "Seamless length, quietly done.",
+  introTitle: "Fitted by Maria, in Lee.",
+  about:
+    "HTLSTUDIO by Maria is a woman-owned extensions studio on Lee High Road. From a full-head removal to a precise tape re-glue, every treatment is unhurried and exact. Tape-ins, K-Tips and nano beads are fitted for length and volume that still move like your own hair.",
+  workIntro:
+    "We take care that extensions are applied as they are supposed to be done, with as natural a result as possible.",
+  baIntro:
+    "The moment the hair is finished, and the length looks as if it has always been theirs.",
+  servicesIntro:
+    "Three ways of adding hair, and the maintenance that keeps a set comfortable.",
+  address: "53 Lee High Road, London, England",
+  placeNote: "Nicole's Doll House, Lee",
+  mapQuery: "53 Lee High Road, London, England",
+  whatsapp: "447490161644",
+  instagramHandle: "htlstudio",
+  instagramPosts: 37,
+  instagramFollowers: 165,
+  instagramFollowing: 88,
+  hours: days.map((day) => ({ day, open: "10:00 am", close: "11:00 pm" })),
+  notes: ["Instant confirmation", "Parking available", "Near public transport", "Woman-owned"],
+  paymentNote: "Klarna and Clearpay are available in the studio.",
+  heroImage: "/hero-banner.png",
+  portraitImage: photo("photo-1605980766335-d3a41c7332a1", 1200),
+};
+
+export const services = [
+  {
+    id: "nano-beads",
+    name: "Nano beads extensions",
+    duration: "",
+    price: 0,
+    kind: "method",
+    description: "Tiny bonds placed close to the scalp, for a light, flexible fit.",
+    imageUrl: photo("photo-1634449571017-5fecfd26ad76", 1000),
+    order: 0,
+  },
+  {
+    id: "k-tips",
+    name: "K-Tips (keratin bonds)",
+    duration: "",
+    price: 0,
+    kind: "method",
+    description: "Keratin tips, discreet and secure, for a sleek finish.",
+    imageUrl: photo("photo-1715067877702-9a3b0faf4ba3", 1000),
+    order: 1,
+  },
+  {
+    id: "tape-ins",
+    name: "Tape-ins",
+    duration: "",
+    price: 0,
+    kind: "method",
+    description: "Fine wefts between tape, quick to fit and gentle to remove.",
+    imageUrl: photo("photo-1614020863825-28a0bb7e3c3c", 1000),
+    order: 2,
+  },
+  {
+    id: "removal-full",
+    name: "Removal (full head)",
+    duration: "2 hours",
+    price: 75,
+    kind: "treatment",
+    description: "",
+    imageUrl: "",
+    order: 3,
+  },
+  {
+    id: "reglue-half",
+    name: "Removals + re-gluing of tapes (half head)",
+    duration: "1 hour",
+    price: 60,
+    kind: "treatment",
+    description: "",
+    imageUrl: "",
+    order: 4,
+  },
+  {
+    id: "fitting-half",
+    name: "50 grams fitting (half head)",
+    duration: "1 hour 30 mins",
+    price: 75,
+    kind: "treatment",
+    description: "",
+    imageUrl: "",
+    order: 5,
+  },
+  {
+    id: "removal-half",
+    name: "Removal (half head)",
+    duration: "1 hour",
+    price: 50,
+    kind: "treatment",
+    description: "",
+    imageUrl: "",
+    order: 6,
+  },
+  {
+    id: "retip-half",
+    name: "Removal + retipping (half head)",
+    duration: "1 hour",
+    price: 60,
+    kind: "treatment",
+    description: "",
+    imageUrl: "",
+    order: 7,
+  },
+  {
+    id: "reglue-full",
+    name: "Removal + re-gluing tapes (full head)",
+    duration: "1 hour 20 mins",
+    price: 75,
+    kind: "treatment",
+    description: "",
+    imageUrl: "",
+    order: 8,
+  },
+];
+
+export const gallery = [
+  ...[1, 2, 3, 4, 5, 6, 7, 8, 9].map((number) => ({
+    id: `work-${number}`,
+    kind: "work",
+    imageUrl: `/instagram/${String(number).padStart(2, "0")}.jpg`,
+    caption: "",
+    order: number - 1,
+  })),
+  {
+    id: "pair-blonde",
+    kind: "pair",
+    beforeUrl: "/compare/04-before.jpg",
+    afterUrl: "/compare/04-after.jpg",
+    caption: "Length through the ends",
+    order: 9,
+  },
+  {
+    id: "pair-wave",
+    kind: "pair",
+    beforeUrl: "/compare/01-before.jpg",
+    afterUrl: "/compare/01-after.jpg",
+    caption: "A softer wave",
+    order: 10,
+  },
+  {
+    id: "pair-straight",
+    kind: "pair",
+    beforeUrl: "/compare/02-before.jpg",
+    afterUrl: "/compare/02-after.jpg",
+    caption: "A smoother line",
+    order: 11,
+  },
+  {
+    id: "pair-fuller",
+    kind: "pair",
+    beforeUrl: "/compare/03-before.jpg",
+    afterUrl: "/compare/03-after.jpg",
+    caption: "A fuller length",
+    order: 12,
+  },
+];

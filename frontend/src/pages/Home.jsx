@@ -1,4 +1,7 @@
 import { bookingText, instagramHref, whatsappHref } from "../api";
+import { Compare } from "../components/Compare";
+import { Reveal } from "../components/Reveal";
+import { useSite } from "../site";
 
 const instagramPosts = {
   "/instagram/01.jpg": "https://www.instagram.com/htlstudio/p/DcidYMEo8hx/",
@@ -11,8 +14,6 @@ const instagramPosts = {
   "/instagram/08.jpg": "https://www.instagram.com/htlstudio/reel/DdrMzLxoe_b/",
   "/instagram/09.jpg": "https://www.instagram.com/htlstudio/reel/Ddg-LuvIf11/",
 };
-import { useSite } from "../site";
-import { Reveal, SplitTitle } from "../components/Reveal";
 
 export function Home() {
   const { settings, services, gallery } = useSite();
@@ -23,14 +24,66 @@ export function Home() {
   const works = gallery.filter((item) => item.kind === "work");
   const pairs = gallery.filter((item) => item.kind === "pair");
   const mapSrc = `https://maps.google.com/maps?q=${encodeURIComponent(settings.mapQuery || settings.address)}&z=16&output=embed`;
+  const headlineParts = settings.headline.split(",");
+  const headlineLead = headlineParts.length > 1 ? `${headlineParts[0].trim()},` : settings.headline;
+  const headlineEmphasis = headlineParts.length > 1 ? headlineParts.slice(1).join(",").trim() : "";
 
   return (
     <>
       <section className="hero" id="top">
-        {settings.heroImage && <img className="hero-media" src={settings.heroImage} alt="" />}
-        <div className="hero-card">
-          <p className="kicker">{settings.eyebrow}</p>
-          <SplitTitle text={settings.headline} />
+        {settings.heroImage && (
+          <img
+            className="hero-media"
+            src={settings.heroImage}
+            alt="HTL Studio by Maria. The art of seamless extensions. Seamless length, quietly done."
+          />
+        )}
+        <h1 className="sr-only hero-title-desktop">{settings.headline}</h1>
+        <div className="hero-mobile">
+          <p className="hero-lockup">
+            <strong>HTL STUDIO</strong>
+            <em>by Maria</em>
+            <small>Hair extensions</small>
+          </p>
+          <p className="hero-kicker">The art of seamless extensions</p>
+          <h1>
+            {headlineLead}
+            {headlineEmphasis && (
+              <>
+                <br />
+                <em>{headlineEmphasis}</em>
+              </>
+            )}
+          </h1>
+          <p className="hero-note">
+            Thoughtfully tailored hair extensions, designed to look and feel like your own.
+          </p>
+          <img
+            className="hero-portrait"
+            src="/hero-portrait.jpg"
+            alt="Maria finishing a set of long blonde extensions in the studio"
+          />
+          <ul className="hero-points">
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M5 15c2.2-6 3.4-8.2 6.2-8.2 2.2 0 2.6 3.1 2.3 6.2-.2 2.5.5 4.2 2.4 4.2 1.7 0 2.5-1.7 3.4-4.2" />
+              </svg>
+              <span>Natural Look</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M7.2 9.6 12 4.2l4.8 5.4L12 20.2 7.2 9.6Z" />
+                <path d="M7.2 9.6h9.6" />
+              </svg>
+              <span>Premium Hair</span>
+            </li>
+            <li>
+              <svg viewBox="0 0 24 24" aria-hidden="true">
+                <path d="M12 18.2s-5.6-3.4-5.6-6.8c0-2.1 1.5-3.4 3-3.4 1 0 1.8.5 2.6 1.6.8-1.1 1.6-1.6 2.6-1.6 1.5 0 3 1.3 3 3.4 0 3.4-5.6 6.8-5.6 6.8Z" />
+              </svg>
+              <span>Personal Care</span>
+            </li>
+          </ul>
         </div>
       </section>
 
@@ -88,7 +141,7 @@ export function Home() {
               const post = instagramPosts[item.imageUrl];
               const photo = <img src={item.imageUrl} alt={item.caption || "HTLSTUDIO"} />;
               return (
-                <figure key={item._id} className="frame">
+                <figure key={item.id} className="frame">
                   {post ? (
                     <a href={post} target="_blank" rel="noreferrer">
                       {photo}
@@ -111,15 +164,8 @@ export function Home() {
           <p className="lede ba-copy">{settings.baIntro}</p>
           <div className="ba-grid">
             {pairs.map((item) => (
-              <article key={item._id} className="ba-card">
-                <div className="pair">
-                  <div className="frame">
-                    <img src={item.beforeUrl} alt="" />
-                  </div>
-                  <div className="frame">
-                    <img src={item.afterUrl} alt="" />
-                  </div>
-                </div>
+              <article key={item.id} className="ba-card">
+                <Compare before={item.beforeUrl} after={item.afterUrl} />
                 <div className="pair-labels">
                   <span>Before</span>
                   <span>After</span>
@@ -138,7 +184,7 @@ export function Home() {
           <p className="lede narrow">{settings.servicesIntro}</p>
           <div className="methods">
             {methods.map((method, index) => (
-              <Reveal key={method._id} delay={index * 70}>
+              <Reveal key={method.id} delay={index * 70}>
                 <article className="method">
                   <div className="frame method-photo">
                     <img src={method.imageUrl} alt="" />
@@ -151,7 +197,7 @@ export function Home() {
           </div>
           <div className="tariff">
             {treatments.map((treatment) => (
-              <article key={treatment._id} className="tariff-row">
+              <article key={treatment.id} className="tariff-row">
                 <h3>{treatment.name}</h3>
                 <span className="meta">{treatment.duration}</span>
                 <span className="price">£{treatment.price}</span>
